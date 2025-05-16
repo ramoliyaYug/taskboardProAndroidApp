@@ -22,6 +22,14 @@
 
     <style name="Theme.Projectcollaboration" parent="Base.Theme.Projectcollaboration" />
 
+    <!-- Splash Screen Theme -->
+    <style name="Theme.Splash" parent="Theme.Projectcollaboration">
+        <item name="android:windowFullscreen">true</item>
+        <item name="android:windowBackground">@color/colorPrimaryDark</item>
+        <item name="android:statusBarColor">@android:color/transparent</item>
+        <item name="android:navigationBarColor">@android:color/transparent</item>
+    </style>
+
     <!-- Button styles -->
     <style name="Widget.App.Button" parent="Widget.MaterialComponents.Button">
         <item name="android:textColor">@android:color/white</item>

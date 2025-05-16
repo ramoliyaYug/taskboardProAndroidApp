@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
-
     <!-- Required permissions for Firebase and network operations -->
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
@@ -16,32 +15,30 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Projectcollaboration"
         tools:targetApi="31">
-
         <activity
-            android:name=".activities.ProjectDetailActivity"
-            android:exported="false" />
-
-        <activity
-            android:name=".activities.RegisterActivity"
-            android:exported="false"
-            android:windowSoftInputMode="adjustResize" />
-
-        <!-- Changed to launcher activity since login should be first -->
-        <activity
-            android:name=".activities.LoginActivity"
-            android:exported="true"
-            android:windowSoftInputMode="adjustResize">
+            android:name=".activities.SplashActivity"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
+        <activity
+            android:name=".activities.ProjectDetailActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activities.RegisterActivity"
+            android:exported="false"
+            android:windowSoftInputMode="adjustResize" /> <!-- Changed to launcher activity since login should be first -->
+        <activity
+            android:name=".activities.LoginActivity"
+            android:exported="false"
+            android:windowSoftInputMode="adjustResize">
+        </activity>
         <activity
             android:name=".activities.MainActivity"
-            android:exported="false" />
-
-        <!-- Firebase Authentication Activity -->
+            android:exported="false" /> <!-- Firebase Authentication Activity -->
         <activity
             android:name="com.google.firebase.auth.internal.GenericIdpActivity"
             android:excludeFromRecents="true"
@@ -50,8 +47,10 @@
             android:theme="@android:style/Theme.Translucent.NoTitleBar">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
+
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
+
                 <data android:scheme="firebase" />
             </intent-filter>
         </activity>

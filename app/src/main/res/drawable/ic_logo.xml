@@ -1,0 +1,45 @@
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="120dp"
+    android:height="120dp"
+    android:viewportWidth="120"
+    android:viewportHeight="120">
+    <path
+        android:fillColor="#00BFA5"
+        android:pathData="M60,60m-50,0a50,50 0,1 1,100 0a50,50 0,1 1,-100 0"
+        android:alpha="0.2" />
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M60,60m-40,0a40,40 0,1 1,80 0a40,40 0,1 1,-80 0"
+        android:alpha="0.1" />
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M42,42L78,42A4,4 0,0 1,82 46L82,74A4,4 0,0 1,78 78L42,78A4,4 0,0 1,38 74L38,46A4,4 0,0 1,42 42z" />
+    <path
+        android:fillColor="#5E35B1"
+        android:pathData="M46,50L58,50A2,2 0,0 1,60 52L60,56A2,2 0,0 1,58 58L46,58A2,2 0,0 1,44 56L44,52A2,2 0,0 1,46 50z" />
+    <path
+        android:fillColor="#00BFA5"
+        android:pathData="M62,50L74,50A2,2 0,0 1,76 52L76,56A2,2 0,0 1,74 58L62,58A2,2 0,0 1,60 56L60,52A2,2 0,0 1,62 50z" />
+    <path
+        android:fillColor="#FF5722"
+        android:pathData="M46,62L58,62A2,2 0,0 1,60 64L60,68A2,2 0,0 1,58 70L46,70A2,2 0,0 1,44 68L44,64A2,2 0,0 1,46 62z" />
+    <path
+        android:fillColor="#5E35B1"
+        android:pathData="M62,62L74,62A2,2 0,0 1,76 64L76,68A2,2 0,0 1,74 70L62,70A2,2 0,0 1,60 68L60,64A2,2 0,0 1,62 62z" />
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M60,30m-10,0a10,10 0,1 1,20 0a10,10 0,1 1,-20 0" />
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M30,60m-10,0a10,10 0,1 1,20 0a10,10 0,1 1,-20 0" />
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M60,90m-10,0a10,10 0,1 1,20 0a10,10 0,1 1,-20 0" />
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M90,60m-10,0a10,10 0,1 1,20 0a10,10 0,1 1,-20 0" />
+    <path
+        android:strokeColor="#FFFFFF"
+        android:strokeWidth="3"
+        android:pathData="M60,30L60,40M30,60L40,60M60,90L60,80M90,60L80,60" />
+</vector>
