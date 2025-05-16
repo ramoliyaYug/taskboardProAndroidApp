@@ -9,6 +9,7 @@ import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.fragment.app.DialogFragment
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.projectcollaboration.R
 import com.example.projectcollaboration.adapters.CommentAdapter
 import com.example.projectcollaboration.databinding.DialogTaskDetailBinding
 import com.example.projectcollaboration.models.Comment
@@ -44,8 +45,9 @@ class TaskDetailDialogFragment : DialogFragment() {
             Log.d("TaskDetailDialog", "onCreate with taskId: $taskId")
         }
 
-        // Set dialog style
-        setStyle(STYLE_NORMAL, android.R.style.Theme_Material_Light_Dialog_MinWidth)
+        // Set dialog style to full width
+        setStyle(STYLE_NORMAL, R.style.FullWidthDialog)
+        dialog?.window?.setBackgroundDrawableResource(android.R.color.transparent)
     }
 
     override fun onCreateView(
@@ -336,7 +338,7 @@ class TaskDetailDialogFragment : DialogFragment() {
                 binding.btnSendComment.isEnabled = true
 
                 if (task.isSuccessful) {
-                    binding.etComment.text.clear()
+                    binding.etComment.text?.clear()
                 } else {
                     Toast.makeText(context, "Failed to add comment", Toast.LENGTH_SHORT).show()
                 }

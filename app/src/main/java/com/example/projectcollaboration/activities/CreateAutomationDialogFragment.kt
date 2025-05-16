@@ -8,6 +8,7 @@ import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.fragment.app.DialogFragment
+import com.example.projectcollaboration.R
 import com.example.projectcollaboration.databinding.DialogCreateAutomationBinding
 import com.example.projectcollaboration.utils.FirebaseUtils
 
@@ -28,6 +29,7 @@ class CreateAutomationDialogFragment : DialogFragment() {
         arguments?.let {
             projectId = it.getString(ARG_PROJECT_ID) ?: ""
         }
+        setStyle(DialogFragment.STYLE_NORMAL, R.style.FullWidthDialog)
     }
 
     override fun onCreateView(

@@ -3,40 +3,50 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    app:cardCornerRadius="8dp">
+    app:cardCornerRadius="16dp">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:padding="16dp">
+        android:padding="32dp">
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Create New Project"
             android:textAlignment="center"
-            android:textSize="18sp"
+            android:textSize="24sp"
             android:textStyle="bold" />
+
+        <View
+            android:layout_width="60dp"
+            android:layout_height="4dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="12dp"
+            android:layout_marginBottom="32dp"
+            android:background="@color/colorAccent" />
 
         <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+            style="@style/Widget.App.TextInputLayout">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/etProjectTitle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Project Title" />
+                android:hint="Project Title"
+                android:textSize="18sp"
+                android:minHeight="56dp" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+            android:layout_marginTop="24dp"
+            style="@style/Widget.App.TextInputLayout">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/etProjectDescription"
@@ -44,13 +54,14 @@
                 android:layout_height="wrap_content"
                 android:hint="Description (optional)"
                 android:inputType="textMultiLine"
-                android:minLines="3" />
+                android:textSize="18sp"
+                android:minLines="4" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="32dp"
             android:gravity="end"
             android:orientation="horizontal">
 
@@ -58,15 +69,22 @@
                 android:id="@+id/btnCancel"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="8dp"
+                android:layout_marginEnd="16dp"
                 android:text="Cancel"
+                android:textSize="16sp"
                 style="@style/Widget.MaterialComponents.Button.TextButton" />
 
-            <Button
+            <com.google.android.material.button.MaterialButton
                 android:id="@+id/btnCreate"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Create" />
+                android:text="Create"
+                android:textSize="16sp"
+                android:paddingStart="24dp"
+                android:paddingEnd="24dp"
+                android:paddingTop="12dp"
+                android:paddingBottom="12dp"
+                app:cornerRadius="8dp" />
         </LinearLayout>
 
         <ProgressBar
@@ -74,7 +92,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="16dp"
             android:visibility="gone" />
     </LinearLayout>
 </androidx.cardview.widget.CardView>

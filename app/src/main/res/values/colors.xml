@@ -1,10 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#6200EE</color>
-    <color name="colorPrimaryDark">#3700B3</color>
-    <color name="colorAccent">#03DAC5</color>
+    <!-- Primary brand colors -->
+    <color name="colorPrimary">#5E35B1</color>
+    <color name="colorPrimaryDark">#4527A0</color>
+    <color name="colorAccent">#00BFA5</color>
+    <color name="colorSecondary">#FF5722</color>
 
+    <!-- Neutral colors -->
+    <color name="colorBackground">#FAFAFA</color>
+    <color name="colorSurface">#FFFFFF</color>
+    <color name="colorOnSurface">#212121</color>
+    <color name="colorOnSurfaceLight">#757575</color>
+    <color name="colorDivider">#E0E0E0</color>
+
+    <!-- Status colors -->
     <color name="status_todo">#FF9800</color>
     <color name="status_in_progress">#2196F3</color>
     <color name="status_done">#4CAF50</color>
+
+    <!-- Other UI colors -->
+    <color name="colorError">#F44336</color>
+    <color name="colorSuccess">#4CAF50</color>
+    <color name="colorWarning">#FFC107</color>
+    <color name="colorInfo">#2196F3</color>
+
+    <!-- Badge colors -->
+    <color name="badgeBackground">#E8F5E9</color>
+    <color name="badgeText">#2E7D32</color>
 </resources>

@@ -11,6 +11,7 @@ import com.example.projectcollaboration.databinding.DialogCreateTaskBinding
 import com.example.projectcollaboration.utils.FirebaseUtils
 import java.text.SimpleDateFormat
 import java.util.*
+import com.example.projectcollaboration.R // Import the R file
 
 class CreateTaskDialogFragment : DialogFragment() {
 
@@ -30,6 +31,7 @@ class CreateTaskDialogFragment : DialogFragment() {
         arguments?.let {
             projectId = it.getString(ARG_PROJECT_ID) ?: ""
         }
+        setStyle(DialogFragment.STYLE_NORMAL, R.style.FullWidthDialog)
     }
 
     override fun onCreateView(

@@ -8,6 +8,7 @@ import android.widget.Toast
 import androidx.fragment.app.DialogFragment
 import com.example.projectcollaboration.databinding.DialogInviteUserBinding
 import com.example.projectcollaboration.utils.FirebaseUtils
+import com.example.projectcollaboration.R
 
 class InviteUserDialogFragment : DialogFragment() {
 
@@ -21,6 +22,7 @@ class InviteUserDialogFragment : DialogFragment() {
         arguments?.let {
             projectId = it.getString(ARG_PROJECT_ID) ?: ""
         }
+        setStyle(DialogFragment.STYLE_NORMAL, R.style.FullWidthDialog)
     }
 
     override fun onCreateView(

@@ -11,7 +11,8 @@
         android:id="@+id/cardProfile"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:cardCornerRadius="8dp"
+        android:layout_marginTop="16dp"
+        app:cardCornerRadius="16dp"
         app:cardElevation="4dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -21,42 +22,54 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:padding="16dp">
+            android:padding="24dp">
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Profile"
                 android:textAlignment="center"
-                android:textSize="20sp"
+                android:textSize="24sp"
                 android:textStyle="bold" />
+
+            <View
+                android:layout_width="40dp"
+                android:layout_height="4dp"
+                android:layout_gravity="center"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="24dp"
+                android:background="@color/colorAccent" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:text="Name:"
-                android:textStyle="bold" />
+                android:text="Name"
+                android:textColor="@color/colorOnSurfaceLight"
+                android:textSize="14sp" />
 
             <TextView
                 android:id="@+id/tvName"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="4dp"
+                android:layout_marginBottom="16dp"
+                android:textSize="18sp"
+                android:textStyle="bold"
                 tools:text="John Doe" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:text="Email:"
-                android:textStyle="bold" />
+                android:text="Email"
+                android:textColor="@color/colorOnSurfaceLight"
+                android:textSize="14sp" />
 
             <TextView
                 android:id="@+id/tvEmail"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="4dp"
+                android:textSize="18sp"
                 tools:text="john.doe@example.com" />
         </LinearLayout>
     </androidx.cardview.widget.CardView>
@@ -67,22 +80,32 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
         android:text="My Badges"
-        android:textSize="18sp"
+        android:textSize="20sp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/cardProfile" />
+
+    <TextView
+        android:id="@+id/tvBadgesSubtitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:text="Achievements earned through collaborations"
+        android:textColor="@color/colorOnSurfaceLight"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvBadgesTitle" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerBadges"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="16dp"
         android:clipToPadding="false"
         android:padding="4dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvBadgesTitle"
+        app:layout_constraintTop_toBottomOf="@+id/tvBadgesSubtitle"
         tools:listitem="@layout/item_badge" />
 
     <TextView
@@ -90,12 +113,12 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="No badges earned yet"
-        android:textSize="16sp"
+        android:textSize="18sp"
         android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvBadgesTitle" />
+        app:layout_constraintTop_toBottomOf="@+id/tvBadgesSubtitle" />
 
     <ProgressBar
         android:id="@+id/progressBar"

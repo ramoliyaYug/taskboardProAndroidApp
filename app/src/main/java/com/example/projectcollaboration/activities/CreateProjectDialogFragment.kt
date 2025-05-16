@@ -9,6 +9,7 @@ import android.widget.Toast
 import androidx.fragment.app.DialogFragment
 import com.example.projectcollaboration.databinding.DialogCreateProjectBinding
 import com.example.projectcollaboration.utils.FirebaseUtils
+import com.example.projectcollaboration.R
 
 class CreateProjectDialogFragment : DialogFragment() {
 
@@ -19,6 +20,11 @@ class CreateProjectDialogFragment : DialogFragment() {
 
     fun setOnProjectCreatedListener(listener: () -> Unit) {
         onProjectCreatedListener = listener
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setStyle(DialogFragment.STYLE_NORMAL, R.style.FullWidthDialog)
     }
 
     override fun onCreateView(

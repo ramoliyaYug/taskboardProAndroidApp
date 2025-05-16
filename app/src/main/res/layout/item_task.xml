@@ -4,9 +4,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="4dp"
-    app:cardCornerRadius="8dp"
-    app:cardElevation="2dp">
+    android:layout_margin="8dp"
+    android:foreground="@drawable/card_ripple"
+    app:cardCornerRadius="12dp"
+    app:cardElevation="4dp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -17,7 +18,7 @@
             android:id="@+id/tvTaskTitle"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:textSize="16sp"
+            android:textSize="18sp"
             android:textStyle="bold"
             app:layout_constraintEnd_toStartOf="@+id/btnChangeStatus"
             app:layout_constraintStart_toStartOf="parent"
@@ -28,37 +29,71 @@
             android:id="@+id/tvTaskStatus"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="4dp"
-            android:background="@drawable/status_background"
-            android:paddingStart="8dp"
-            android:paddingTop="2dp"
-            android:paddingEnd="8dp"
-            android:paddingBottom="2dp"
+            android:layout_marginTop="8dp"
+            android:background="@drawable/status_in_progress_bg"
+            android:paddingStart="12dp"
+            android:paddingTop="4dp"
+            android:paddingEnd="12dp"
+            android:paddingBottom="4dp"
             android:textColor="@android:color/white"
             android:textSize="12sp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tvTaskTitle"
             tools:text="In Progress" />
 
-        <TextView
-            android:id="@+id/tvDueDate"
+        <LinearLayout
+            android:id="@+id/layoutDueDate"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="4dp"
-            android:textSize="12sp"
+            android:layout_marginTop="12dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tvTaskStatus"
-            tools:text="Due: May 15, 2023" />
+            app:layout_constraintTop_toBottomOf="@+id/tvTaskStatus">
 
-        <TextView
-            android:id="@+id/tvAssignee"
+            <ImageView
+                android:layout_width="16dp"
+                android:layout_height="16dp"
+                android:contentDescription="Due Date"
+                android:src="@drawable/ic_date"
+                android:tint="@color/colorOnSurfaceLight" />
+
+            <TextView
+                android:id="@+id/tvDueDate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="4dp"
+                android:textSize="14sp"
+                android:textColor="@color/colorOnSurfaceLight"
+                tools:text="Due: May 15, 2023" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/layoutAssignee"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="4dp"
-            android:textSize="12sp"
+            android:layout_marginTop="8dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tvDueDate"
-            tools:text="Assigned to: John Doe" />
+            app:layout_constraintTop_toBottomOf="@+id/layoutDueDate">
+
+            <ImageView
+                android:layout_width="16dp"
+                android:layout_height="16dp"
+                android:contentDescription="Assignee"
+                android:src="@drawable/ic_profile_new"
+                android:tint="@color/colorOnSurfaceLight" />
+
+            <TextView
+                android:id="@+id/tvAssignee"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="4dp"
+                android:textSize="14sp"
+                android:textColor="@color/colorOnSurfaceLight"
+                tools:text="Assigned to: John Doe" />
+        </LinearLayout>
 
         <ImageButton
             android:id="@+id/btnChangeStatus"
@@ -66,7 +101,9 @@
             android:layout_height="wrap_content"
             android:background="?attr/selectableItemBackgroundBorderless"
             android:contentDescription="Change Status"
+            android:padding="8dp"
             android:src="@drawable/ic_more"
+            android:tint="@color/colorPrimary"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
