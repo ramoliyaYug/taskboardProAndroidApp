@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "297356858218",
+    "project_id": "projectcollaborationapp",
+    "storage_bucket": "projectcollaborationapp.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:297356858218:android:393c0f0551621af6580b13",
+        "android_client_info": {
+          "package_name": "com.example.projectcollaboration"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA2mUECr6uPMvlqbDj-oHVWlzcw1NbtM0Q"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
