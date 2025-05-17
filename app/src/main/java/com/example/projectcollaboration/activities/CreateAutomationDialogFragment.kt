@@ -76,12 +76,10 @@ class CreateAutomationDialogFragment : DialogFragment() {
             override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
                 when (position) {
                     0 -> {
-                        // Nothing selected
                         binding.layoutTriggerValue.visibility = View.GONE
                         binding.layoutActionType.visibility = View.GONE
                     }
                     1 -> {
-                        // Task moved to status
                         binding.layoutTriggerValue.visibility = View.VISIBLE
                         binding.tvTriggerValueLabel.text = "Status:"
                         binding.etTriggerValue.hint = "e.g., Done"
@@ -89,13 +87,11 @@ class CreateAutomationDialogFragment : DialogFragment() {
                         binding.layoutActionType.visibility = View.VISIBLE
                     }
                     2 -> {
-                        // Task assigned to user
                         binding.layoutTriggerValue.visibility = View.GONE
                         setupActionTypeSpinner(position)
                         binding.layoutActionType.visibility = View.VISIBLE
                     }
                     3 -> {
-                        // Due date passes
                         binding.layoutTriggerValue.visibility = View.GONE
                         setupActionTypeSpinner(position)
                         binding.layoutActionType.visibility = View.VISIBLE
@@ -113,7 +109,6 @@ class CreateAutomationDialogFragment : DialogFragment() {
     private fun setupActionTypeSpinner(triggerPosition: Int) {
         val actionTypes = when (triggerPosition) {
             1 -> {
-                // Task moved to status
                 listOf(
                     "Select action type",
                     "Assign badge to user",
@@ -121,7 +116,6 @@ class CreateAutomationDialogFragment : DialogFragment() {
                 )
             }
             2 -> {
-                // Task assigned to user
                 listOf(
                     "Select action type",
                     "Move task to status",
@@ -129,7 +123,6 @@ class CreateAutomationDialogFragment : DialogFragment() {
                 )
             }
             3 -> {
-                // Due date passes
                 listOf(
                     "Select action type",
                     "Move task to status",
@@ -157,7 +150,6 @@ class CreateAutomationDialogFragment : DialogFragment() {
 
                     when (position) {
                         1 -> {
-                            // Assign badge or Move task
                             if (triggerPosition == 1) {
                                 binding.tvActionValueLabel.text = "Badge name:"
                                 binding.etActionValue.hint = "e.g., Completer"
@@ -167,7 +159,6 @@ class CreateAutomationDialogFragment : DialogFragment() {
                             }
                         }
                         2 -> {
-                            // Send notification
                             binding.tvActionValueLabel.text = "Notification message:"
                             binding.etActionValue.hint = "e.g., Task needs attention"
                         }
@@ -195,7 +186,6 @@ class CreateAutomationDialogFragment : DialogFragment() {
             return
         }
 
-        // Get trigger type
         val triggerType = when (triggerTypePosition) {
             1 -> "task_moved"
             2 -> "task_assigned"
@@ -203,7 +193,6 @@ class CreateAutomationDialogFragment : DialogFragment() {
             else -> return
         }
 
-        // Get trigger value
         val triggerValue = if (triggerTypePosition == 1) {
             val value = binding.etTriggerValue.text.toString().trim()
             if (value.isEmpty()) {
@@ -212,10 +201,9 @@ class CreateAutomationDialogFragment : DialogFragment() {
             }
             value
         } else {
-            "" // Not needed for other trigger types
+            ""
         }
 
-        // Get action type
         val actionType = when {
             triggerTypePosition == 1 && actionTypePosition == 1 -> "assign_badge"
             (triggerTypePosition == 2 || triggerTypePosition == 3) && actionTypePosition == 1 -> "move_task"
@@ -223,7 +211,6 @@ class CreateAutomationDialogFragment : DialogFragment() {
             else -> return
         }
 
-        // Get action value
         val actionValue = binding.etActionValue.text.toString().trim()
         if (actionValue.isEmpty()) {
             binding.etActionValue.error = "This field is required"

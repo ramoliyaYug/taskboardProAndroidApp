@@ -71,7 +71,6 @@ class CreateTaskDialogFragment : DialogFragment() {
 
                 dueDate = calendar.timeInMillis
 
-                // Update button text with selected date
                 val dateFormat = SimpleDateFormat("MMM dd, yyyy", Locale.getDefault())
                 binding.btnSelectDate.text = dateFormat.format(calendar.time)
             },

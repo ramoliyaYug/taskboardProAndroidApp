@@ -22,12 +22,11 @@ class TasksFragment : Fragment() {
     private var _binding: FragmentTasksBinding? = null
     private val binding get() = _binding!!
 
-    private var projectId: String = "" // Initialize with empty string to avoid null
+    private var projectId: String = ""
     private var isMyTasksMode: Boolean = false
     private lateinit var taskAdapter: TaskAdapter
     private val tasks = mutableListOf<Task>()
 
-    // Track if the fragment is active to prevent callbacks after destruction
     private var isActive = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -54,18 +53,14 @@ class TasksFragment : Fragment() {
         isActive = true
         Log.d("TasksFragment", "onViewCreated with projectId: $projectId, isMyTasksMode: $isMyTasksMode")
 
-        // Set up RecyclerView
         taskAdapter = TaskAdapter(tasks,
             onTaskClick = { task ->
-                // Open task detail dialog
                 val dialog = TaskDetailDialogFragment.newInstance(task.id)
                 dialog.show(parentFragmentManager, "TaskDetailDialog")
             },
             onStatusChange = { taskId, newStatus ->
-                // Update task status
                 FirebaseUtils.updateTaskStatus(taskId, newStatus) { success ->
                     if (!success) {
-                        // Handle failure
                         Log.e("TasksFragment", "Failed to update task status")
                     }
                 }
@@ -77,7 +72,6 @@ class TasksFragment : Fragment() {
             adapter = taskAdapter
         }
 
-        // Set up FAB for creating new tasks - only show in project mode
         if (!isMyTasksMode && projectId.isNotEmpty()) {
             binding.fabAddTask.visibility = View.VISIBLE
             binding.fabAddTask.setOnClickListener {
@@ -87,7 +81,6 @@ class TasksFragment : Fragment() {
             binding.fabAddTask.visibility = View.GONE
         }
 
-        // Load tasks based on mode
         if (isMyTasksMode) {
             loadMyTasks()
         } else if (projectId.isNotEmpty()) {
@@ -101,7 +94,7 @@ class TasksFragment : Fragment() {
     }
 
     private fun loadProjectTasks() {
-        if (_binding == null) return // Skip if binding is null
+        if (_binding == null) return
 
         binding.progressBar.visibility = View.VISIBLE
         binding.tvEmptyTasks.visibility = View.GONE
@@ -109,7 +102,6 @@ class TasksFragment : Fragment() {
         Log.d("TasksFragment", "Loading tasks for project: $projectId")
 
         FirebaseUtils.getProjectTasks(projectId) { tasksList ->
-            // Check if fragment is still active and binding is not null
             if (!isActive || _binding == null) {
                 Log.d("TasksFragment", "Fragment no longer active, ignoring callback")
                 return@getProjectTasks
@@ -124,7 +116,6 @@ class TasksFragment : Fragment() {
                 tasks.addAll(tasksList)
                 taskAdapter.notifyDataSetChanged()
 
-                // Show empty view if no tasks
                 if (tasks.isEmpty()) {
                     binding.tvEmptyTasks.text = "No tasks in this project yet"
                     binding.tvEmptyTasks.visibility = View.VISIBLE
@@ -140,7 +131,7 @@ class TasksFragment : Fragment() {
     }
 
     private fun loadMyTasks() {
-        if (_binding == null) return // Skip if binding is null
+        if (_binding == null) return
 
         binding.progressBar.visibility = View.VISIBLE
         binding.tvEmptyTasks.visibility = View.GONE
@@ -155,11 +146,9 @@ class TasksFragment : Fragment() {
 
         Log.d("TasksFragment", "Loading tasks assigned to user: $currentUserId")
 
-        // Get all tasks from the database
         val database = FirebaseDatabase.getInstance().reference
         database.child("tasks").addValueEventListener(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
-                // Check if fragment is still active and binding is not null
                 if (!isActive || _binding == null) {
                     Log.d("TasksFragment", "Fragment no longer active, ignoring callback")
                     return
@@ -173,7 +162,6 @@ class TasksFragment : Fragment() {
                     for (taskSnapshot in snapshot.children) {
                         val task = taskSnapshot.getValue(Task::class.java)
                         if (task != null && task.assigneeId == currentUserId) {
-                            // Ensure the task ID is set
                             if (task.id.isEmpty()) {
                                 task.id = taskSnapshot.key ?: ""
                             }
@@ -188,7 +176,6 @@ class TasksFragment : Fragment() {
                     tasks.addAll(assignedTasks)
                     taskAdapter.notifyDataSetChanged()
 
-                    // Show empty view if no tasks
                     if (tasks.isEmpty()) {
                         binding.tvEmptyTasks.text = "No tasks assigned to you yet"
                         binding.tvEmptyTasks.visibility = View.VISIBLE
@@ -203,7 +190,6 @@ class TasksFragment : Fragment() {
             }
 
             override fun onCancelled(error: DatabaseError) {
-                // Check if fragment is still active and binding is not null
                 if (!isActive || _binding == null) return
 
                 Log.e("TasksFragment", "Database error: ${error.message}")
@@ -217,7 +203,6 @@ class TasksFragment : Fragment() {
     private fun showCreateTaskDialog() {
         val dialog = CreateTaskDialogFragment.newInstance(projectId)
         dialog.setOnTaskCreatedListener {
-            // Reload tasks after creating a new one
             loadProjectTasks()
         }
         dialog.show(parentFragmentManager, "CreateTaskDialog")
@@ -226,7 +211,6 @@ class TasksFragment : Fragment() {
     override fun onResume() {
         super.onResume()
         isActive = true
-        // Refresh tasks when returning to this fragment
         if (isMyTasksMode) {
             loadMyTasks()
         } else if (projectId.isNotEmpty()) {

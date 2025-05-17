@@ -35,7 +35,6 @@ class TaskDetailDialogFragment : DialogFragment() {
     private val projectMembers = mutableListOf<User>()
     private val memberIds = mutableListOf<String>()
 
-    // Track if the dialog is active to prevent callbacks after destruction
     private var isActive = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -45,7 +44,6 @@ class TaskDetailDialogFragment : DialogFragment() {
             Log.d("TaskDetailDialog", "onCreate with taskId: $taskId")
         }
 
-        // Set dialog style to full width
         setStyle(STYLE_NORMAL, R.style.FullWidthDialog)
         dialog?.window?.setBackgroundDrawableResource(android.R.color.transparent)
     }
@@ -64,19 +62,16 @@ class TaskDetailDialogFragment : DialogFragment() {
 
         isActive = true
 
-        // Set up close button
         binding.btnClose.setOnClickListener {
             dismiss()
         }
 
-        // Set up comments RecyclerView
         commentAdapter = CommentAdapter(comments)
         binding.recyclerComments.apply {
             layoutManager = LinearLayoutManager(context)
             adapter = commentAdapter
         }
 
-        // Set up add comment button
         binding.btnSendComment.setOnClickListener {
             val commentText = binding.etComment.text.toString().trim()
             if (commentText.isNotEmpty()) {
@@ -84,21 +79,18 @@ class TaskDetailDialogFragment : DialogFragment() {
             }
         }
 
-        // Load task details
         loadTaskDetails()
     }
 
     private fun loadTaskDetails() {
-        if (_binding == null) return // Skip if binding is null
+        if (_binding == null) return
 
         binding.progressBar.visibility = View.VISIBLE
 
-        // Get task details from Firebase
         FirebaseDatabase.getInstance().reference
             .child("tasks").child(taskId)
             .addValueEventListener(object : ValueEventListener {
                 override fun onDataChange(snapshot: DataSnapshot) {
-                    // Check if dialog is still active and binding is not null
                     if (!isActive || _binding == null) {
                         Log.d("TaskDetailDialog", "Dialog no longer active, ignoring callback")
                         return
@@ -132,13 +124,12 @@ class TaskDetailDialogFragment : DialogFragment() {
     }
 
     private fun updateUI(task: Task) {
-        if (_binding == null) return // Skip if binding is null
+        if (_binding == null) return
 
         binding.tvTaskTitle.text = task.title
         binding.tvTaskDescription.text = task.description
         binding.tvTaskStatus.text = "Status: ${task.status}"
 
-        // Format due date
         if (task.dueDate > 0) {
             val dateFormat = SimpleDateFormat("MMM dd, yyyy", Locale.getDefault())
             binding.tvDueDate.text = "Due: ${dateFormat.format(Date(task.dueDate))}"
@@ -147,10 +138,8 @@ class TaskDetailDialogFragment : DialogFragment() {
             binding.tvDueDate.visibility = View.GONE
         }
 
-        // Get assignee name
         if (task.assigneeId.isNotEmpty()) {
             FirebaseUtils.getUserById(task.assigneeId) { user ->
-                // Check if dialog is still active and binding is not null
                 if (!isActive || _binding == null) return@getUserById
 
                 try {
@@ -182,8 +171,6 @@ class TaskDetailDialogFragment : DialogFragment() {
                     if (memberIds.isEmpty()) {
                         return
                     }
-
-                    // Load user details for each member
                     var loadedCount = 0
 
                     for (userId in memberIds) {
@@ -201,7 +188,6 @@ class TaskDetailDialogFragment : DialogFragment() {
 
                                     loadedCount++
                                     if (loadedCount == memberIds.size) {
-                                        // All members loaded, set up assignee spinner
                                         setupAssigneeSpinner()
                                     }
                                 }
@@ -214,7 +200,6 @@ class TaskDetailDialogFragment : DialogFragment() {
                 }
 
                 override fun onCancelled(error: DatabaseError) {
-                    // Handle error
                 }
             })
     }
@@ -288,17 +273,14 @@ class TaskDetailDialogFragment : DialogFragment() {
                             }
                         }
 
-                        // Sort comments by timestamp
                         comments.sortBy { it.timestamp }
 
                         commentAdapter.notifyDataSetChanged()
 
-                        // Scroll to the bottom
                         if (comments.isNotEmpty()) {
                             binding.recyclerComments.scrollToPosition(comments.size - 1)
                         }
 
-                        // Show empty view if no comments
                         if (comments.isEmpty()) {
                             binding.tvEmptyComments.visibility = View.VISIBLE
                         } else {
@@ -310,7 +292,6 @@ class TaskDetailDialogFragment : DialogFragment() {
                 }
 
                 override fun onCancelled(error: DatabaseError) {
-                    // Handle error
                 }
             })
     }

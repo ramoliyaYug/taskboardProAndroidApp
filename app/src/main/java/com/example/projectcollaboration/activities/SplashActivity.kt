@@ -23,10 +23,8 @@ class SplashActivity : AppCompatActivity() {
         binding = ActivitySplashBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        // Start animations
         startAnimations()
 
-        // Navigate to login screen after delay
         Handler(Looper.getMainLooper()).postDelayed({
             startActivity(Intent(this, LoginActivity::class.java))
             overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out)
@@ -35,7 +33,6 @@ class SplashActivity : AppCompatActivity() {
     }
 
     private fun startAnimations() {
-        // Initially hide elements
         binding.ivLogo.alpha = 0f
         binding.tvAppName.alpha = 0f
         binding.tvTagline.alpha = 0f
@@ -43,7 +40,6 @@ class SplashActivity : AppCompatActivity() {
         binding.ivLogo.scaleX = 0.6f
         binding.ivLogo.scaleY = 0.6f
 
-        // Create animations
         val logoScale = AnimatorSet().apply {
             playTogether(
                 ObjectAnimator.ofFloat(binding.ivLogo, "scaleX", 0.6f, 1f),
@@ -76,19 +72,17 @@ class SplashActivity : AppCompatActivity() {
             interpolator = AccelerateDecelerateInterpolator()
         }
 
-        // Start animations
         AnimatorSet().apply {
             playTogether(logoScale, logoFade, titleFade, taglineFade, progressFade)
             start()
         }
 
-        // Animate the background gradient
         animateBackground()
     }
 
     private fun animateBackground() {
         val animator = ObjectAnimator.ofFloat(binding.backgroundGradient, "rotation", 0f, 360f)
-        animator.duration = 30000 // 30 seconds for a full rotation
+        animator.duration = 30000
         animator.repeatCount = ObjectAnimator.INFINITE
         animator.interpolator = AccelerateDecelerateInterpolator()
         animator.start()

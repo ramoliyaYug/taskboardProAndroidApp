@@ -24,7 +24,6 @@ class ProjectDetailActivity : AppCompatActivity() {
         binding = ActivityProjectDetailBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        // Get project details from intent
         projectId = intent.getStringExtra("PROJECT_ID") ?: ""
         projectTitle = intent.getStringExtra("PROJECT_TITLE") ?: "Project"
 
@@ -35,14 +34,12 @@ class ProjectDetailActivity : AppCompatActivity() {
             return
         }
 
-        // Set up toolbar
         setSupportActionBar(binding.toolbar)
         supportActionBar?.apply {
             title = projectTitle
             setDisplayHomeAsUpEnabled(true)
         }
 
-        // Set up ViewPager and TabLayout
         setupViewPager()
     }
 
@@ -50,7 +47,6 @@ class ProjectDetailActivity : AppCompatActivity() {
         val pagerAdapter = ProjectPagerAdapter(this, projectId)
         binding.viewPager.adapter = pagerAdapter
 
-        // Connect TabLayout with ViewPager
         TabLayoutMediator(binding.tabLayout, binding.viewPager) { tab, position ->
             tab.text = when (position) {
                 0 -> "Tasks"
@@ -60,11 +56,9 @@ class ProjectDetailActivity : AppCompatActivity() {
             }
         }.attach()
 
-        // Handle page changes
         binding.viewPager.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
             override fun onPageSelected(position: Int) {
                 super.onPageSelected(position)
-                // You can handle page selection here if needed
             }
         })
     }

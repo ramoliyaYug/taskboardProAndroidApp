@@ -39,19 +39,16 @@ class AutomationsFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        // Set up RecyclerView
         automationAdapter = AutomationAdapter(automations)
         binding.recyclerAutomations.apply {
             layoutManager = LinearLayoutManager(context)
             adapter = automationAdapter
         }
 
-        // Set up FAB for creating new automations
         binding.fabAddAutomation.setOnClickListener {
             showCreateAutomationDialog()
         }
 
-        // Load automations
         loadAutomations()
     }
 
@@ -60,7 +57,7 @@ class AutomationsFragment : Fragment() {
         binding.tvEmptyAutomations.visibility = View.GONE
 
         FirebaseUtils.getProjectAutomations(projectId) { automationsList ->
-            if (_binding == null) return@getProjectAutomations // Check if binding is still valid
+            if (_binding == null) return@getProjectAutomations
 
             binding.progressBar.visibility = View.GONE
 
@@ -68,7 +65,6 @@ class AutomationsFragment : Fragment() {
             automations.addAll(automationsList)
             automationAdapter.notifyDataSetChanged()
 
-            // Show empty view if no automations
             if (automations.isEmpty()) {
                 binding.tvEmptyAutomations.visibility = View.VISIBLE
             } else {
@@ -80,7 +76,6 @@ class AutomationsFragment : Fragment() {
     private fun showCreateAutomationDialog() {
         val dialog = CreateAutomationDialogFragment.newInstance(projectId)
         dialog.setOnAutomationCreatedListener {
-            // Reload automations after creating a new one
             loadAutomations()
         }
         dialog.show(parentFragmentManager, "CreateAutomationDialog")

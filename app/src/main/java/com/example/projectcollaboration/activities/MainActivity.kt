@@ -20,7 +20,6 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        // Set up bottom navigation
         val bottomNavigation = findViewById<BottomNavigationView>(R.id.bottom_navigation)
         bottomNavigation.setOnItemSelectedListener { item ->
             when (item.itemId) {
@@ -40,7 +39,6 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
-        // Set default fragment
         if (savedInstanceState == null) {
             bottomNavigation.selectedItemId = R.id.nav_projects
         }

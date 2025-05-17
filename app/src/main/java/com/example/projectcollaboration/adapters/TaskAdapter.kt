@@ -42,7 +42,6 @@ class TaskAdapter(
             binding.tvTaskTitle.text = task.title
             binding.tvTaskStatus.text = task.status
 
-            // Set due date
             if (task.dueDate > 0) {
                 binding.tvDueDate.visibility = View.VISIBLE
                 binding.tvDueDate.text = "Due: ${dateFormat.format(Date(task.dueDate))}"
@@ -50,7 +49,6 @@ class TaskAdapter(
                 binding.tvDueDate.visibility = View.GONE
             }
 
-            // Set assignee
             if (task.assigneeId.isNotEmpty()) {
                 binding.tvAssignee.visibility = View.VISIBLE
                 FirebaseUtils.getUserById(task.assigneeId) { user ->
@@ -60,7 +58,6 @@ class TaskAdapter(
                 binding.tvAssignee.visibility = View.GONE
             }
 
-            // Set status color
             val statusColor = when (task.status) {
                 "To Do" -> R.color.status_todo
                 "In Progress" -> R.color.status_in_progress
@@ -69,12 +66,10 @@ class TaskAdapter(
             }
             binding.tvTaskStatus.setBackgroundResource(statusColor)
 
-            // Set click listener
             binding.root.setOnClickListener {
                 onTaskClick(task)
             }
 
-            // Set status change menu
             binding.btnChangeStatus.setOnClickListener { view ->
                 showStatusMenu(view, task)
             }

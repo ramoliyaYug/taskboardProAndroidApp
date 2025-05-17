@@ -18,16 +18,14 @@ class RegisterActivity : AppCompatActivity() {
         binding = ActivityRegisterBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        // Initialize Firebase Auth
         auth = FirebaseAuth.getInstance()
 
-        // Set up click listeners
         binding.btnRegister.setOnClickListener {
             registerUser()
         }
 
         binding.tvLogin.setOnClickListener {
-            finish() // Go back to login activity
+            finish()
         }
     }
 
@@ -47,7 +45,6 @@ class RegisterActivity : AppCompatActivity() {
             return
         }
 
-        // Show progress
         binding.progressBar.visibility = android.view.View.VISIBLE
 
         auth.createUserWithEmailAndPassword(email, password)
@@ -55,10 +52,7 @@ class RegisterActivity : AppCompatActivity() {
                 binding.progressBar.visibility = android.view.View.GONE
 
                 if (task.isSuccessful) {
-                    // Sign up success
                     val user = auth.currentUser
-
-                    // Create user profile
                     user?.let {
                         FirebaseUtils.createUserProfile(it.uid, name, email) { success ->
                             if (success) {
@@ -70,7 +64,6 @@ class RegisterActivity : AppCompatActivity() {
                         }
                     }
                 } else {
-                    // If sign up fails, display a message to the user
                     Toast.makeText(this, "Registration failed: ${task.exception?.message}",
                         Toast.LENGTH_SHORT).show()
                 }

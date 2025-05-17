@@ -8,7 +8,6 @@ data class User(
     val email: String = "",
     val badges: Map<String, Boolean> = HashMap()
 ) {
-    // Helper function to get badges as a list of strings
     @Exclude
     fun getBadgesList(): List<String> {
         return badges.keys.toList()

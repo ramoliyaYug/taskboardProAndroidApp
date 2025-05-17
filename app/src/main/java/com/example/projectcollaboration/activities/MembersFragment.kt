@@ -42,21 +42,18 @@ class MembersFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        // Set up RecyclerView
         memberAdapter = MemberAdapter(members)
         binding.recyclerMembers.apply {
             layoutManager = LinearLayoutManager(context)
             adapter = memberAdapter
         }
 
-        // Load members
         loadMembers()
     }
 
     private fun loadMembers() {
         binding.progressBar.visibility = View.VISIBLE
 
-        // Get project members
         FirebaseDatabase.getInstance().reference
             .child("projects").child(projectId).child("members")
             .addValueEventListener(object : ValueEventListener {
@@ -73,7 +70,6 @@ class MembersFragment : Fragment() {
                         return
                     }
 
-                    // Load user details for each member
                     members.clear()
                     var loadedCount = 0
 
@@ -87,7 +83,6 @@ class MembersFragment : Fragment() {
 
                                     loadedCount++
                                     if (loadedCount == memberIds.size) {
-                                        // All members loaded
                                         binding.progressBar.visibility = View.GONE
                                         memberAdapter.notifyDataSetChanged()
 

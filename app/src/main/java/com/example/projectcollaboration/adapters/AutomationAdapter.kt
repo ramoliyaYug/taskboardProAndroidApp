@@ -29,7 +29,6 @@ class AutomationAdapter(
         RecyclerView.ViewHolder(binding.root) {
 
         fun bind(automation: Automation) {
-            // Format trigger description
             val triggerDesc = when (automation.triggerType) {
                 "task_moved" -> "When task is moved to '${automation.triggerValue}'"
                 "task_assigned" -> "When task is assigned to a user"
@@ -37,7 +36,6 @@ class AutomationAdapter(
                 else -> automation.triggerType
             }
 
-            // Format action description
             val actionDesc = when (automation.actionType) {
                 "assign_badge" -> "Assign badge '${automation.actionValue}'"
                 "move_task" -> "Move task to '${automation.actionValue}'"

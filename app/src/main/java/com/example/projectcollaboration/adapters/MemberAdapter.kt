@@ -32,7 +32,6 @@ class MemberAdapter(
             binding.tvMemberName.text = user.name
             binding.tvMemberEmail.text = user.email
 
-            // Set badge count using the helper method
             val badgeCount = user.getBadgesList().size
             if (badgeCount > 0) {
                 binding.tvBadgeCount.text = "$badgeCount badges"

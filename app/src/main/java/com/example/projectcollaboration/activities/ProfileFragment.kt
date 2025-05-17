@@ -31,18 +31,15 @@ class ProfileFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        // Set up RecyclerView for badges
         badgeAdapter = BadgeAdapter(badges)
         binding.recyclerBadges.apply {
             layoutManager = LinearLayoutManager(context)
             adapter = badgeAdapter
         }
 
-        // Load user profile
         loadUserProfile()
     }
 
-    // Update the loadUserProfile method to use the new getBadgesList() helper method
     private fun loadUserProfile() {
         binding.progressBar.visibility = View.VISIBLE
 
@@ -52,22 +49,18 @@ class ProfileFragment : Fragment() {
             return
         }
 
-        // Set email
         binding.tvEmail.text = currentUser.email
 
-        // Get user details from Firebase
         FirebaseUtils.getUserById(currentUser.uid) { user ->
             binding.progressBar.visibility = View.GONE
 
             if (user != null) {
                 binding.tvName.text = user.name
 
-                // Load badges using the helper method
                 badges.clear()
                 badges.addAll(user.getBadgesList())
                 badgeAdapter.notifyDataSetChanged()
 
-                // Show empty view if no badges
                 if (badges.isEmpty()) {
                     binding.tvEmptyBadges.visibility = View.VISIBLE
                 } else {

@@ -22,7 +22,6 @@ class ProjectsFragment : Fragment() {
     private lateinit var projectAdapter: ProjectAdapter
     private val projects = mutableListOf<Project>()
 
-    // Track if the fragment is active to prevent callbacks after destruction
     private var isActive = false
 
     override fun onCreateView(
@@ -40,9 +39,7 @@ class ProjectsFragment : Fragment() {
         isActive = true
         Log.d("ProjectsFragment", "onViewCreated")
 
-        // Set up RecyclerView
         projectAdapter = ProjectAdapter(projects) { project ->
-            // Handle project click - open project details
             val intent = Intent(requireContext(), ProjectDetailActivity::class.java).apply {
                 putExtra("PROJECT_ID", project.id)
                 putExtra("PROJECT_TITLE", project.title)
@@ -55,17 +52,15 @@ class ProjectsFragment : Fragment() {
             adapter = projectAdapter
         }
 
-        // Set up FAB for creating new projects
         binding.fabAddProject.setOnClickListener {
             showCreateProjectDialog()
         }
 
-        // Load projects
         loadProjects()
     }
 
     private fun loadProjects() {
-        if (_binding == null) return // Skip if binding is null
+        if (_binding == null) return
 
         binding.progressBar.visibility = View.VISIBLE
         binding.tvEmptyProjects.visibility = View.GONE
@@ -73,7 +68,6 @@ class ProjectsFragment : Fragment() {
         Log.d("ProjectsFragment", "Loading projects...")
 
         FirebaseUtils.getUserProjects { projectsList ->
-            // Check if fragment is still active and binding is not null
             if (!isActive || _binding == null) {
                 Log.d("ProjectsFragment", "Fragment no longer active, ignoring callback")
                 return@getUserProjects
@@ -88,7 +82,6 @@ class ProjectsFragment : Fragment() {
                 projects.addAll(projectsList)
                 projectAdapter.notifyDataSetChanged()
 
-                // Show empty view if no projects
                 if (projects.isEmpty()) {
                     binding.tvEmptyProjects.visibility = View.VISIBLE
                     Log.d("ProjectsFragment", "No projects to display")
@@ -107,7 +100,6 @@ class ProjectsFragment : Fragment() {
     private fun showCreateProjectDialog() {
         val dialog = CreateProjectDialogFragment()
         dialog.setOnProjectCreatedListener {
-            // Reload projects after creating a new one
             Toast.makeText(context, "Project created successfully! Refreshing list...", Toast.LENGTH_SHORT).show()
             loadProjects()
         }
@@ -117,7 +109,6 @@ class ProjectsFragment : Fragment() {
     override fun onResume() {
         super.onResume()
         isActive = true
-        // Refresh projects when returning to this fragment
         loadProjects()
     }
 

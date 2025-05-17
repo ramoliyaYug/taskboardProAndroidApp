@@ -29,18 +29,15 @@ class LoginActivity : AppCompatActivity() {
         binding = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        // Initialize Firebase Auth
         auth = FirebaseAuth.getInstance()
 
-        // Configure Google Sign In
         val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-            .requestIdToken("YOUR_WEB_CLIENT_ID") // Replace with your actual web client ID from Firebase console
+            .requestIdToken("297356858218-u2ijtmr9pj5g7trhlse2vbg2f28th74a.apps.googleusercontent.com")
             .requestEmail()
             .build()
 
         googleSignInClient = GoogleSignIn.getClient(this, gso)
 
-        // Set up click listeners
         binding.btnLogin.setOnClickListener {
             loginWithEmailPassword()
         }
@@ -56,10 +53,8 @@ class LoginActivity : AppCompatActivity() {
 
     override fun onStart() {
         super.onStart()
-        // Check if user is signed in
         val currentUser = auth.currentUser
         if (currentUser != null) {
-            // User is already signed in, go to main activity
             startActivity(Intent(this, MainActivity::class.java))
             finish()
         }
@@ -74,7 +69,6 @@ class LoginActivity : AppCompatActivity() {
             return
         }
 
-        // Show progress
         binding.progressBar.visibility = android.view.View.VISIBLE
 
         auth.signInWithEmailAndPassword(email, password)
@@ -82,11 +76,9 @@ class LoginActivity : AppCompatActivity() {
                 binding.progressBar.visibility = android.view.View.GONE
 
                 if (task.isSuccessful) {
-                    // Sign in success
                     startActivity(Intent(this, MainActivity::class.java))
                     finish()
                 } else {
-                    // If sign in fails, display a message to the user
                     Toast.makeText(this, "Authentication failed: ${task.exception?.message}",
                         Toast.LENGTH_SHORT).show()
                 }
@@ -104,11 +96,9 @@ class LoginActivity : AppCompatActivity() {
         if (requestCode == RC_SIGN_IN) {
             val task = GoogleSignIn.getSignedInAccountFromIntent(data)
             try {
-                // Google Sign In was successful, authenticate with Firebase
                 val account = task.getResult(ApiException::class.java)!!
                 firebaseAuthWithGoogle(account.idToken!!)
             } catch (e: ApiException) {
-                // Google Sign In failed
                 Toast.makeText(this, "Google sign in failed: ${e.message}", Toast.LENGTH_SHORT).show()
             }
         }
@@ -123,10 +113,7 @@ class LoginActivity : AppCompatActivity() {
                 binding.progressBar.visibility = android.view.View.GONE
 
                 if (task.isSuccessful) {
-                    // Sign in success
                     val user = auth.currentUser
-
-                    // Create or update user profile
                     user?.let {
                         FirebaseUtils.createUserProfile(
                             it.uid,
@@ -142,7 +129,6 @@ class LoginActivity : AppCompatActivity() {
                         }
                     }
                 } else {
-                    // If sign in fails, display a message to the user
                     Toast.makeText(this, "Authentication failed: ${task.exception?.message}",
                         Toast.LENGTH_SHORT).show()
                 }

@@ -30,14 +30,11 @@ class CommentAdapter(private val comments: List<Comment>) :
     override fun onBindViewHolder(holder: CommentViewHolder, position: Int) {
         val comment = comments[position]
 
-        // Set comment text
         holder.tvCommentText.text = comment.text
 
-        // Format and set time
         val dateFormat = SimpleDateFormat("MMM dd, yyyy HH:mm", Locale.getDefault())
         holder.tvCommentTime.text = dateFormat.format(Date(comment.timestamp))
 
-        // Get and set user name
         FirebaseUtils.getUserById(comment.userId) { user ->
             if (user != null) {
                 holder.tvUserName.text = user.name
